@@ -1,5 +1,7 @@
 name: Build
 
+# Fork build workflow for Cloudflare deployment.
+
 on:
   push:
     branches:
