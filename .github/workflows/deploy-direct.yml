@@ -33,8 +33,21 @@ jobs:
       - name: Run typecheck
         run: bun run check
 
-      - name: Build
-        run: bun run build
+      - name: Build client
+        run: |
+          cd client
+          bun run build
+          cd ..
+
+      - name: Setup Wrangler
+        uses: ./.github/actions/setup-wrangler
+        with:
+          mode: "dry-run"
+
+      - name: Build server
+        run: |
+          mkdir -p ./dist/server
+          bunx wrangler deploy --dry-run --outdir=dist/server
 
       - name: Deploy to Cloudflare
         env:
